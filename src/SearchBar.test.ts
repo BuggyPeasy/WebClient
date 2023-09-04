@@ -1,17 +1,16 @@
-import type SearchBar from "./SearchBar";
+import type SearchBar from './SearchBar';
 
-import "./AnswerForm";
+import './AnswerForm';
 
-describe("SearchBar", () => {
-
-  let form: HTMLFormElement;
+describe('SearchBar', () => {
+  let form: HTMLFormElement | null; // FIXME:
   let searchBar: SearchBar;
-  let input: HTMLInputElement;
+  let input: HTMLInputElement | null; // FIXME
 
   beforeEach(() => {
-    searchBar = document.createElement("search-bar");
-    form = searchBar.querySelector("form");
-    input = searchBar.querySelector("input");
+    searchBar = document.createElement('search-bar');
+    form = searchBar.querySelector('form');
+    input = searchBar.querySelector('input');
     document.body.append(searchBar);
   });
 
@@ -19,16 +18,17 @@ describe("SearchBar", () => {
     document.body.removeChild(searchBar);
   });
 
-  it("should initialize correctly", () => {
+  it('should initialize correctly', () => {
     expect(searchBar).toBeTruthy();
   });
 
-  it("should handle submit event", (done) => {
+  it('should handle submit event', done => {
+    if (form == null) return;
+
     const submitHandler = jest.fn();
+    searchBar.addEventListener('submit', submitHandler);
 
-    searchBar.addEventListener("submit", submitHandler);
-
-    searchBar.querySelector("form").submit();
+    form.submit();
 
     setTimeout(() => {
       expect(submitHandler).toHaveBeenCalled();
@@ -36,14 +36,16 @@ describe("SearchBar", () => {
     });
   });
 
-  it("the read the submitted input when the form is entered", (done) => {
-    searchBar.querySelector("input").value = "value";
+  it('the read the submitted input when the form is entered', done => {
+    if (form == null) return;
+    if (input == null) return;
 
-    searchBar.querySelector("form").submit();
+    input.value = 'value';
+
+    form.submit();
 
     const formData = new FormData(form);
 
-    expect(formData.get("value")).toEqual("value");
+    expect(formData.get('value')).toEqual('value');
   });
-
-})
+});

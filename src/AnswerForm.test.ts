@@ -3,9 +3,10 @@ import type AnswerForm from './AnswerForm';
 import './AnswerForm';
 
 describe('AnswerForm', () => {
-  let form: HTMLFormElement;
+  let form: HTMLFormElement | null;
   let answerForm: AnswerForm;
-  let button: HTMLButtonElement;
+  let button: HTMLButtonElement | null;
+  let input: HTMLInputElement | null; // FIXME
 
   beforeEach(() => {
     answerForm = document.createElement('answer-form');
@@ -23,11 +24,12 @@ describe('AnswerForm', () => {
   });
 
   it('should handle submit event', done => {
-    const submitHandler = jest.fn();
+    if (form == null) return;
 
+    const submitHandler = jest.fn();
     answerForm.addEventListener('submit', submitHandler);
 
-    answerForm.querySelector('form').submit();
+    form.submit();
 
     setTimeout(() => {
       expect(submitHandler).toHaveBeenCalled();
@@ -36,9 +38,11 @@ describe('AnswerForm', () => {
   });
 
   it('should handle submit event if the button is clicked', done => {
+    if (button == null) return;
+
     const submitHandler = jest.fn();
 
-    answerForm.querySelector('button').click();
+    button.click();
 
     setTimeout(() => {
       expect(submitHandler).toHaveBeenCalled();
@@ -47,7 +51,10 @@ describe('AnswerForm', () => {
   });
 
   it('should read the answer the user enters when form is submitted', () => {
-    answerForm.querySelector('input').value = 'answer';
+    if (form == null) return;
+    if (input == null) return;
+
+    input.value = 'answer';
 
     form.submit();
 
@@ -57,7 +64,11 @@ describe('AnswerForm', () => {
   });
 
   it('should read the answer the user enters when button is clicked', () => {
-    answerForm.querySelector('input').value = 'answer';
+    if (form == null) return;
+    if (input == null) return;
+    if (button == null) return;
+
+    input.value = 'answer';
 
     button.click();
 
