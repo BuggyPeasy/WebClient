@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "ES6",
+    "target": "ES6",
+    "rootDir": "./src",
+    "outDir": "./dist/js",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "lib": ["es6", "dom"]
-  }
+    "lib": ["es6", "dom"],
+    "moduleResolution": "node"
+  },
+  "include": ["./src"],
+  "exclude": ["./src/**test.ts"]
 }
