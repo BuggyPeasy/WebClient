@@ -10,7 +10,8 @@
     "sourceMap": true,
     "lib": ["es6", "dom"],
     "moduleResolution": "node",
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "esModuleInterop": true
   },
   "include": ["./src"],
   "exclude": ["./src/**test.ts"]

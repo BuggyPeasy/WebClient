@@ -2,7 +2,8 @@
   "scripts": {
     "build": "tsc && cp -R ./public/*.html ./dist/",
     "test": "jest --watchAll --verbose --coverage",
-    "check": "./node_modules/.bin/eslint src/*.ts"
+    "check": "eslint src/*.ts",
+    "clean": "rm -r dist/*"
   },
   "dependencies": {
     "@types/jest": "^29.5.4",
