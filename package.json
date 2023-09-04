@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "build": "tsc && cp -R ./public/*.html ./dist/",
     "test": "jest --watchAll --verbose --coverage"
   },
   "dependencies": {
@@ -8,6 +9,7 @@
   },
   "devDependencies": {
     "jest-environment-jsdom": "^29.6.4",
-    "ts-jest": "^29.1.1"
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2"
   }
 }
