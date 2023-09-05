@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "target": "ES6",
+    "rootDir": "./src",
+    "outDir": "./dist/js",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "lib": ["es6", "dom"],
+    "moduleResolution": "node",
+    "strictNullChecks": true
+  },
+  "include": ["./src"]
+}
