@@ -3,7 +3,6 @@ import type SearchBar from './SearchBar';
 import './SearchBar';
 
 describe.skip('SearchBar Component', () => {
-
   const answerInputName = 'answer';
   const answerInputValue = 'answer';
 
@@ -87,7 +86,4 @@ describe.skip('SearchBar Component', () => {
 
     expect(formData.get(answerInputName)).toEqual(answerInputValue);
   });
-
 });
-
-
