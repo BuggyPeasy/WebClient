@@ -87,6 +87,7 @@ describe.skip('SearchBar Component', () => {
 
     expect(formData.get(answerInputName)).toEqual(answerInputValue);
   });
+
 });
 
 
