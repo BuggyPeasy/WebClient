@@ -1,9 +1,7 @@
-import type AnswerForm from './AnswerForm';
+import AnswerForm from './AnswerForm';
 
-import './AnswerForm';
-
-describe.skip('AnswerForm', () => {
-  const answerInputName = 'answer';
+describe('AnswerForm', () => {
+  const answerInputName = 'user-answer';
   const answerInputValue = 'answer';
 
   let form: HTMLFormElement;
@@ -13,6 +11,10 @@ describe.skip('AnswerForm', () => {
 
   beforeEach(() => {
     answerForm = document.createElement('answer-form');
+    document.body.append(answerForm);
+
+    expect(answerForm).toBeTruthy();
+    if (answerForm == null) return; // TODO: research this
 
     const _form = answerForm.querySelector('form');
     if (_form != null) form = _form;
@@ -22,7 +24,9 @@ describe.skip('AnswerForm', () => {
     if (_button != null) button = _button;
     expect(button).toBeTruthy();
 
-    document.body.append(answerForm);
+    const _input = answerForm.querySelector('input');
+    if (_input != null) input = _input;
+    expect(input).toBeTruthy();
   });
 
   afterEach(() => {
@@ -33,40 +37,97 @@ describe.skip('AnswerForm', () => {
     expect(answerForm).toBeTruthy();
   });
 
-  it('should handle submit event', done => {
-    expect(form).toBeTruthy();
+  it('should add event listeners correctly', () => {
+    const test = document.createElement('answer-form');
+    document.body.appendChild(test);
+
+    test.handleSubmit = jest.fn();
+    test.addEventListeners();
+    test.submit();
+
+    expect(test.handleSubmit).toHaveBeenCalled();
+
+    test.remove();
+  });
+
+  it('should throw an error if calling addEventListeners when not connected to DOM', () => {
+    const test = document.createElement('answer-form');
+
+    const cb = (): void => {
+      test.addEventListeners();
+    };
+
+    expect(cb).toThrow(AnswerForm.FORM_NOT_FOUND_ERROR);
+
+    test.remove();
+  });
+
+  it('should remove event listeners correctly', () => {
+    const test = document.createElement('answer-form');
+    document.body.appendChild(test);
+
+    test.handleSubmit = jest.fn();
+    test.addEventListeners();
+    test.submit();
+
+    expect(test.handleSubmit).toHaveBeenCalled();
+
+    test.remove();
+  });
+
+  it('should throw an error if calling removeEventListeners when not connected to DOM', () => {
+    const test = document.createElement('answer-form');
+
+    const cb = (): void => {
+      test.removeEventListeners();
+    };
+
+    expect(cb).toThrow(AnswerForm.FORM_NOT_FOUND_ERROR);
+
+    test.remove();
+  });
+
+  it('should handle submit event', () => {
+    expect(answerForm).toBeTruthy();
 
     const submitHandler = jest.fn();
     answerForm.addEventListener('submit', submitHandler);
 
-    form.submit();
+    answerForm.submit();
 
-    setTimeout(() => {
-      expect(submitHandler).toHaveBeenCalled();
-      done();
-    });
+    expect(submitHandler).toHaveBeenCalled();
   });
 
-  it('should handle submit event if the button is clicked', done => {
+  it('should throw an error if calling submit when not connected to DOM', () => {
+    const test = document.createElement('answer-form');
+
+    const cb = (): void => {
+      test.submit();
+    };
+
+    expect(cb).toThrow(AnswerForm.FORM_NOT_FOUND_ERROR);
+
+    test.remove();
+  });
+
+  it('should handle submit event if the button is clicked', () => {
     expect(button).toBeTruthy();
 
     const submitHandler = jest.fn();
+    answerForm.addEventListener('submit', submitHandler);
 
     button.click();
 
-    setTimeout(() => {
-      expect(submitHandler).toHaveBeenCalled();
-      done();
-    });
+    expect(submitHandler).toHaveBeenCalled();
   });
 
   it('should read the answer the user enters when form is submitted', () => {
-    expect(form).toBeTruthy();
     expect(input).toBeTruthy();
+    expect(answerForm).toBeTruthy();
 
     input.value = answerInputValue;
 
-    form.submit();
+    answerForm.submit();
 
     const formData = new FormData(form);
 
@@ -74,9 +135,9 @@ describe.skip('AnswerForm', () => {
   });
 
   it('should read the answer the user enters when button is clicked', () => {
-    expect(form).toBeTruthy();
     expect(input).toBeTruthy();
     expect(button).toBeTruthy();
+    expect(answerForm).toBeTruthy();
 
     input.value = answerInputValue;
 
