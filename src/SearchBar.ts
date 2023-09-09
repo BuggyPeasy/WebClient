@@ -1,12 +1,12 @@
 class SearchBar extends HTMLElement {
-  submit (): void {}
+  submit(): void {}
 }
 
 customElements.define('search-bar', SearchBar);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'search-bar': SearchBar
+    'search-bar': SearchBar;
   }
 }
 
