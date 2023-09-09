@@ -97,6 +97,17 @@ Reference: [link](https://github.com/git-merge-workshops/simplify-signing-with-s
    git rebase --signoff HEAD~N
    ```
 
+### Potential Errors
+
+1. error: Couldn't find key in agent?
+
+   - Solution:
+
+     ```sh
+     ssh-agent
+     ssh-add ~/.ssh/id_ed25519
+     ```
+
 ## Pre-Push Instructions
 
 Before pushing, make sure that you pass when you type in the following commands:
