@@ -37,15 +37,44 @@ describe('AnswerForm', () => {
     expect(answerForm).toBeTruthy();
   });
 
-  it('should handle submit event', () => {
+  it('should call submit event handler', () => {
     expect(answerForm).toBeTruthy();
 
-    const submitHandler = jest.fn();
+    const submitHandler = jest.fn().mockImplementation(e => e.preventDefault());
     answerForm.addEventListener('submit', submitHandler);
 
+    input.value = answerInputValue;
     answerForm.submit();
 
     expect(submitHandler).toHaveBeenCalled();
+  });
+
+  it('should not call the submit event handler if user inputs nothing', () => {
+    expect(answerForm).toBeTruthy();
+
+    const submitHandler = jest.fn().mockImplementation(e => e.preventDefault());
+    answerForm.addEventListener('submit', submitHandler);
+
+    input.value = '';
+    answerForm.submit();
+
+    expect(submitHandler).not.toHaveBeenCalled();
+  });
+
+  it('should read the answer the user enters when form is submitted', done => {
+    expect(input).toBeTruthy();
+    expect(answerForm).toBeTruthy();
+
+    input.value = answerInputValue;
+
+    answerForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      expect(formData.get(answerInputName)).toEqual(answerInputValue);
+      done();
+    });
+
+    answerForm.submit();
   });
 
   it('should throw an error if calling submit when not connected to DOM', () => {
@@ -60,41 +89,48 @@ describe('AnswerForm', () => {
     test.remove();
   });
 
-  it('should handle submit event if the button is clicked', () => {
+  it('should not call the submit event handler if input element is not in DOM', () => {
+    const test = document.createElement('answer-form');
+    document.body.appendChild(test);
+
+    const input = test.querySelector('input');
+    if (input != null) input?.remove();
+
+    const cb = (): void => {
+      test.submit();
+    };
+
+    expect(cb).toThrow(AnswerForm.INPUT_NOT_FOUND_ERROR);
+
+    test.remove();
+  });
+
+  it('should call submit event handler if the button is clicked', () => {
     expect(button).toBeTruthy();
 
-    const submitHandler = jest.fn();
+    const submitHandler = jest.fn().mockImplementation(e => e.preventDefault());
     answerForm.addEventListener('submit', submitHandler);
 
+    input.value = 'hello';
     button.click();
 
     expect(submitHandler).toHaveBeenCalled();
   });
 
-  it('should read the answer the user enters when form is submitted', () => {
-    expect(input).toBeTruthy();
-    expect(answerForm).toBeTruthy();
-
-    input.value = answerInputValue;
-
-    answerForm.submit();
-
-    const formData = new FormData(form);
-
-    expect(formData.get(answerInputName)).toEqual(answerInputValue);
-  });
-
-  it('should read the answer the user enters when button is clicked', () => {
+  it('should read the answer the user enters when button is clicked', done => {
     expect(input).toBeTruthy();
     expect(button).toBeTruthy();
     expect(answerForm).toBeTruthy();
 
     input.value = answerInputValue;
 
+    answerForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      expect(formData.get(answerInputName)).toEqual(answerInputValue);
+      done();
+    });
+
     button.click();
-
-    const formData = new FormData(form);
-
-    expect(formData.get(answerInputName)).toEqual(answerInputValue);
   });
 });

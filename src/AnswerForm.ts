@@ -1,5 +1,6 @@
 class AnswerForm extends HTMLElement {
   static FORM_NOT_FOUND_ERROR = 'Form element not found';
+  static INPUT_NOT_FOUND_ERROR = 'Input element not found';
   static HTML = `
   <form>
     <fieldset>
@@ -37,6 +38,13 @@ class AnswerForm extends HTMLElement {
 
   submit(): void {
     if (this.#form == null) throw new Error(AnswerForm.FORM_NOT_FOUND_ERROR);
+
+    const input = this.#form.querySelector('input');
+    if (input == null) throw new Error(AnswerForm.INPUT_NOT_FOUND_ERROR);
+
+    // validate input value
+    if (input.value === '') return;
+
     this.#form.submit();
   }
 
