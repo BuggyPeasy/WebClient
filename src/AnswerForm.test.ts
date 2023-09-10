@@ -37,56 +37,6 @@ describe('AnswerForm', () => {
     expect(answerForm).toBeTruthy();
   });
 
-  it('should add event listeners correctly', () => {
-    const test = document.createElement('answer-form');
-    document.body.appendChild(test);
-
-    test.handleSubmit = jest.fn();
-    test.addEventListeners();
-    test.submit();
-
-    expect(test.handleSubmit).toHaveBeenCalled();
-
-    test.remove();
-  });
-
-  it('should throw an error if calling addEventListeners when not connected to DOM', () => {
-    const test = document.createElement('answer-form');
-
-    const cb = (): void => {
-      test.addEventListeners();
-    };
-
-    expect(cb).toThrow(AnswerForm.FORM_NOT_FOUND_ERROR);
-
-    test.remove();
-  });
-
-  it('should remove event listeners correctly', () => {
-    const test = document.createElement('answer-form');
-    document.body.appendChild(test);
-
-    test.handleSubmit = jest.fn();
-    test.addEventListeners();
-    test.submit();
-
-    expect(test.handleSubmit).toHaveBeenCalled();
-
-    test.remove();
-  });
-
-  it('should throw an error if calling removeEventListeners when not connected to DOM', () => {
-    const test = document.createElement('answer-form');
-
-    const cb = (): void => {
-      test.removeEventListeners();
-    };
-
-    expect(cb).toThrow(AnswerForm.FORM_NOT_FOUND_ERROR);
-
-    test.remove();
-  });
-
   it('should handle submit event', () => {
     expect(answerForm).toBeTruthy();
 

@@ -5,6 +5,7 @@ class AnswerForm extends HTMLElement {
     <fieldset>
       <legend>Put Your Answer Below ⬇️</legend>
       <input
+        required
         type="text"
         id="user-answer"
         name="user-answer"
@@ -28,27 +29,10 @@ class AnswerForm extends HTMLElement {
 
   render(): void {
     this.innerHTML = AnswerForm.HTML;
-    this.addEventListeners();
   }
 
   unrender(): void {
-    this.removeEventListeners();
     this.innerHTML = '';
-  }
-
-  addEventListeners(): void {
-    if (this.#form == null) throw new Error(AnswerForm.FORM_NOT_FOUND_ERROR);
-    this.#form.addEventListener('submit', this.handleSubmit);
-  }
-
-  removeEventListeners(): void {
-    if (this.#form == null) throw new Error(AnswerForm.FORM_NOT_FOUND_ERROR);
-    this.#form.removeEventListener('submit', this.handleSubmit);
-  }
-
-  handleSubmit(e: Event): void {
-    e.preventDefault();
-    document.dispatchEvent(new Event('submit'));
   }
 
   submit(): void {
