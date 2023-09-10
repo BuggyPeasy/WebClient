@@ -1,6 +1,6 @@
 class SearchBar extends HTMLElement {
   static FORM_NOT_FOUND_ERROR = 'Form Not Found';
-  static INPUT_IS_NULL_ERROR = 'Input Is Null';
+  static INPUT_NOT_FOUND_ERROR = 'Input Not Found';
   static HTML = `
   <form>
     <input
@@ -9,6 +9,7 @@ class SearchBar extends HTMLElement {
       name="user-search"
       value=""
       placeholder="Search"
+      require
     />
   </form>
   `;
@@ -33,7 +34,7 @@ class SearchBar extends HTMLElement {
     if (this.#form == null) throw new Error(SearchBar.FORM_NOT_FOUND_ERROR);
 
     const input = this.#form.querySelector('input');
-    if (input == null) throw new Error(SearchBar.INPUT_IS_NULL_ERROR);
+    if (input == null) throw new Error(SearchBar.INPUT_NOT_FOUND_ERROR);
 
     // validate input value
     if (input.value === '') return;

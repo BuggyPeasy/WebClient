@@ -56,6 +56,19 @@ describe('SearchBar Component', () => {
     searchBar.submit();
   });
 
+  it('should call the submit handler when user enters a non-empty response', () => {
+    expect(form).toBeTruthy();
+    expect(input).toBeTruthy();
+
+    const submitHandler = jest.fn().mockImplementation(e => e.preventDefault());
+    input.value = answerInputValue;
+
+    searchBar.addEventListener('submit', submitHandler);
+    searchBar.submit();
+
+    expect(submitHandler).toHaveBeenCalled();
+  });
+
   it('should not call the submit event handler when the input is empty', () => {
     expect(form).toBeTruthy();
     expect(input).toBeTruthy();
@@ -79,6 +92,6 @@ describe('SearchBar Component', () => {
       searchBar.submit();
     };
 
-    expect(cb).toThrow(SearchBar.INPUT_IS_NULL_ERROR);
+    expect(cb).toThrow(SearchBar.INPUT_NOT_FOUND_ERROR);
   });
 });
