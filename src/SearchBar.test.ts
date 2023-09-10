@@ -75,7 +75,7 @@ describe('SearchBar Component', () => {
 
     const cb = (): void => {
       searchBar.submit();
-    }
+    };
 
     expect(cb).toThrow(SearchBar.INPUT_IS_NULL_ERROR);
   });
