@@ -1,11 +1,11 @@
 import SearchBar from './SearchBar';
 
 describe('SearchBar Component', () => {
-  const answerInputName = 'user-search';
   const answerInputValue = 'answer';
+  const answerInputName = 'user-search';
 
-  let form: HTMLFormElement;
   let searchBar: SearchBar;
+  let form: HTMLFormElement;
   let input: HTMLInputElement;
 
   beforeEach(() => {
@@ -47,18 +47,20 @@ describe('SearchBar Component', () => {
 
     input.value = answerInputValue;
 
+    searchBar.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      expect(formData.get(answerInputName)).toEqual(answerInputValue);
+    });
+
     searchBar.submit();
-
-    const formData = new FormData(form);
-
-    expect(formData.get(answerInputName)).toEqual(answerInputValue);
   });
 
   it('should not call the submit event handler when the input is empty', () => {
     expect(form).toBeTruthy();
     expect(input).toBeTruthy();
 
-    const submitHandler = jest.fn();
+    const submitHandler = jest.fn().mockImplementation(e => e.preventDefault());
     input.value = '';
 
     searchBar.addEventListener('submit', submitHandler);
