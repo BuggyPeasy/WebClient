@@ -1,89 +1,98 @@
-import type SearchBar from './SearchBar';
+import SearchBar from './SearchBar';
 
-import './SearchBar';
-
-describe.skip('SearchBar Component', () => {
-  const answerInputName = 'answer';
+describe('SearchBar Component', () => {
   const answerInputValue = 'answer';
+  const answerInputName = 'user-search';
 
-  let form: HTMLFormElement;
   let searchBar: SearchBar;
+  let form: HTMLFormElement;
   let input: HTMLInputElement;
-  let button: HTMLButtonElement;
 
   beforeEach(() => {
     searchBar = document.createElement('search-bar');
+    document.body.append(searchBar);
 
     const _form = searchBar.querySelector('form');
     if (_form != null) form = _form;
     expect(form).toBeTruthy();
 
-    const _button = searchBar.querySelector('button');
-    if (_button != null) button = _button;
-    expect(button).toBeTruthy();
-
-    document.body.append(searchBar);
+    const _input = searchBar.querySelector('input');
+    if (_input != null) input = _input;
+    expect(input).toBeTruthy();
   });
 
   afterEach(() => {
     document.body.removeChild(searchBar);
   });
 
-  it('should initialize correctly', () => {
+  it('initialize everything correctly', () => {
     expect(searchBar).toBeTruthy();
   });
 
-  it('should handle submit event', done => {
-    expect(form).toBeTruthy();
+  it('should throw an error calling sumbit when not connected to DOM', () => {
+    const test = document.createElement('search-bar');
 
-    const submitHandler = jest.fn();
+    const cb = (): void => {
+      test.submit();
+    };
+
+    expect(cb).toThrow(SearchBar.FORM_NOT_FOUND_ERROR);
+
+    test.remove();
+  });
+
+  it('should read the input when the form is submitted', done => {
+    expect(form).toBeTruthy();
+    expect(input).toBeTruthy();
+
+    input.value = answerInputValue;
+
+    searchBar.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      expect(formData.get(answerInputName)).toEqual(answerInputValue);
+      done();
+    });
+
+    searchBar.submit();
+  });
+
+  it('should call the submit handler when user enters a non-empty response', () => {
+    expect(form).toBeTruthy();
+    expect(input).toBeTruthy();
+
+    const submitHandler = jest.fn().mockImplementation(e => e.preventDefault());
+    input.value = answerInputValue;
+
     searchBar.addEventListener('submit', submitHandler);
+    searchBar.submit();
 
-    form.submit();
-
-    setTimeout(() => {
-      expect(submitHandler).toHaveBeenCalled();
-      done();
-    });
+    expect(submitHandler).toHaveBeenCalled();
   });
 
-  it('should handle submit event if the button is clicked', done => {
-    expect(button).toBeTruthy();
-
-    const submitHandler = jest.fn();
-
-    button.click();
-
-    setTimeout(() => {
-      expect(submitHandler).toHaveBeenCalled();
-      done();
-    });
-  });
-
-  it('should read the answer the user enters when form is submitted', () => {
+  it('should not call the submit event handler when the input is empty', () => {
     expect(form).toBeTruthy();
     expect(input).toBeTruthy();
 
-    input.value = answerInputValue;
+    const submitHandler = jest.fn().mockImplementation(e => e.preventDefault());
+    input.value = '';
 
-    form.submit();
+    searchBar.addEventListener('submit', submitHandler);
+    searchBar.submit();
 
-    const formData = new FormData(form);
-
-    expect(formData.get(answerInputName)).toEqual(answerInputValue);
+    expect(submitHandler).not.toHaveBeenCalled();
   });
 
-  it('should read the answer the user enters when button is clicked', () => {
+  it('should throw an error when the input is null', () => {
     expect(form).toBeTruthy();
     expect(input).toBeTruthy();
-    expect(button).toBeTruthy();
 
-    input.value = answerInputValue;
+    input.remove();
 
-    button.click();
+    const cb = (): void => {
+      searchBar.submit();
+    };
 
-    const formData = new FormData(form);
-
-    expect(formData.get(answerInputName)).toEqual(answerInputValue);
+    expect(cb).toThrow(SearchBar.INPUT_NOT_FOUND_ERROR);
   });
 });
