@@ -41,7 +41,7 @@ describe('SearchBar Component', () => {
     test.remove();
   });
 
-  it('should read the input when the form is submitted', () => {
+  it('should read the input when the form is submitted', done => {
     expect(form).toBeTruthy();
     expect(input).toBeTruthy();
 
@@ -51,6 +51,7 @@ describe('SearchBar Component', () => {
       e.preventDefault();
       const formData = new FormData(form);
       expect(formData.get(answerInputName)).toEqual(answerInputValue);
+      done();
     });
 
     searchBar.submit();
