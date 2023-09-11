@@ -4,12 +4,12 @@ class SearchBar extends HTMLElement {
   static HTML = `
   <form>
     <input
+      required
       type="text"
       id="user-search"
       name="user-search"
       value=""
       placeholder="Search"
-      require
     />
   </form>
   `;
