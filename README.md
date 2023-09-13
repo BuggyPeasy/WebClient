@@ -7,7 +7,7 @@ Codebase for web client
 Run this command to set up your dev env:
 
 ```sh
-npm install
+bun install
 ```
 
 ### SSH Key
@@ -113,9 +113,9 @@ Reference: [link](https://github.com/git-merge-workshops/simplify-signing-with-s
 Before pushing, make sure that you pass when you type in the following commands:
 
 ```sh
-npm run check
-npm run test
-npm run build
+bun run check
+bun test
+bun run build
 ```
 
 ## Design Documents:
