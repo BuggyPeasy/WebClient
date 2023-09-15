@@ -61,7 +61,7 @@ describe('AnswerForm', () => {
     input.value = '';
     answerForm.submit();
 
-    // expect(submitHandler).not.toHaveBeenCalled();
+    expect(submitHandler).not.toHaveBeenCalled();
   });
 
   it('should read the answer the user enters when form is submitted', done => {
