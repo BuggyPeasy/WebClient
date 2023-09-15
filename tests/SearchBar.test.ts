@@ -1,4 +1,8 @@
-import SearchBar from './SearchBar';
+/// <reference lib="dom" />
+
+import { describe, expect, beforeEach, afterEach, it, mock } from 'bun:test';
+
+import SearchBar from '../src/SearchBar';
 
 describe('SearchBar Component', () => {
   const answerInputValue = 'answer';
@@ -14,11 +18,12 @@ describe('SearchBar Component', () => {
 
     const _form = searchBar.querySelector('form');
     if (_form != null) form = _form;
-    expect(form).toBeTruthy();
+    form.submit = () => {
+      form.dispatchEvent(new SubmitEvent('submit', { bubbles: true }));
+    };
 
     const _input = searchBar.querySelector('input');
     if (_input != null) input = _input;
-    expect(input).toBeTruthy();
   });
 
   afterEach(() => {
@@ -49,7 +54,7 @@ describe('SearchBar Component', () => {
 
     searchBar.addEventListener('submit', e => {
       e.preventDefault();
-      const formData = new FormData(form);
+      const formData = new window.FormData(form);
       expect(formData.get(answerInputName)).toEqual(answerInputValue);
       done();
     });
@@ -61,7 +66,7 @@ describe('SearchBar Component', () => {
     expect(form).toBeTruthy();
     expect(input).toBeTruthy();
 
-    const submitHandler = jest.fn().mockImplementation(e => e.preventDefault());
+    const submitHandler = mock(e => e.preventDefault());
     input.value = answerInputValue;
 
     searchBar.addEventListener('submit', submitHandler);
@@ -74,7 +79,7 @@ describe('SearchBar Component', () => {
     expect(form).toBeTruthy();
     expect(input).toBeTruthy();
 
-    const submitHandler = jest.fn().mockImplementation(e => e.preventDefault());
+    const submitHandler = mock(e => e.preventDefault());
     input.value = '';
 
     searchBar.addEventListener('submit', submitHandler);
