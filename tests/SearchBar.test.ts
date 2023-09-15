@@ -14,7 +14,7 @@ describe('SearchBar Component', () => {
 
   beforeEach(() => {
     searchBar = document.createElement('search-bar');
-    document.body.append(searchBar);
+    document.body.appendChild(searchBar);
 
     const _form = searchBar.querySelector('form');
     if (_form != null) form = _form;

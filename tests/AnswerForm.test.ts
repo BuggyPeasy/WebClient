@@ -15,7 +15,7 @@ describe('AnswerForm', () => {
 
   beforeEach(() => {
     answerForm = document.createElement('answer-form');
-    document.body.append(answerForm);
+    document.body.appendChild(answerForm);
 
     if (answerForm == null) return; // TODO: research this
 
