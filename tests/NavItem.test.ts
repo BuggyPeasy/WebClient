@@ -25,16 +25,17 @@ describe.skip('NavItem', () => {
 
   it('should not render if not connected to DOM', () => {
     const test = document.createElement('nav-item');
-    const href = test.querySelector('a');
-    expect(href).not.toBeTruthy();
+    const item = test.querySelector('li');
+    expect(item).not.toBeTruthy();
   });
 
-  it('should invoke click event when the user clicks on it', () => {
-    const cb = mock(e => e.preventDefault());
+  it('should invoke click event when the user clicks on it and it is connected to DOM', () => {
+    const clickHandler = mock(e => e.preventDefault());
+    navItem.addEventListener('click', clickHandler);
 
     navItem.click();
 
-    expect(cb).toHaveBeenCalled();
+    expect(clickHandler).toHaveBeenCalled();
   });
 
   it('should throw an error if the user clicks and it is not connected to DOM', () => {
@@ -44,6 +45,6 @@ describe.skip('NavItem', () => {
       test.click();
     };
 
-    expect(cb).toThrow(NavItem.NAV_ITEM_NOT_FOUND_ERR);
+    expect(cb).toThrow(NavItem.LI_NOT_FOUND_ERR);
   });
 });

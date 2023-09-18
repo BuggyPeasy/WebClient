@@ -1,13 +1,5 @@
 class NavItem extends HTMLElement {
-  static NAV_ITEM_NOT_FOUND_ERR = 'Nav Item Not Found';
-  static HTML = `
-  <li>
-    <a href=data.route>
-      <i class=data.icon_class></i>
-      <span>data.text</span>
-    </a>
-  </li>
-  `;
+  static LI_NOT_FOUND_ERR = 'Li Not Found';
 
   click(): void{}
 }
