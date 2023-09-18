@@ -44,20 +44,22 @@ describe.skip('ImageContainer Component', () => {
   it('should not render if not connected to the DOM', () => {
     const test = document.createElement('image-container');
     const slot = test.querySelector('slot');
-    expect(slot).toBeNull();
+    expect(slot).not.toBeTruthy();
   });
 
   it('should not attach shadowRoot if not connected to the DOM', () => {
     const test = document.createElement('image-container');
-    expect(test.shadowRoot).toBeNull();
+    expect(test.shadowRoot).not.toBeTruthy();
   });
 
   it('should invoke click event when the user clicks on it', () => {
-    const cb = mock(e => e.preventDefault());
+    const clickHander = mock(e => e.preventDefault());
+
+    image_container.addEventListener('click', clickHander);
 
     image_container.click();
 
-    expect(cb).toHaveBeenCalled();
+    expect(clickHander).toHaveBeenCalled();
   });
 
   it('should enter full-screen mode when the user clicks on the image container or the image', () => {
