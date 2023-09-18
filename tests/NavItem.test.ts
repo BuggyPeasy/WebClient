@@ -3,22 +3,16 @@
 import { describe, expect, beforeEach, afterEach, it, mock } from 'bun:test';
 
 import NavItem from '../src/NavItem';
-import exp from 'constants';
 
 describe.skip('NavItem', () => {
 
   let navItem: NavItem;
-  let text: Text;
-  let span: HTMLSpanElement;
 
   beforeEach(() => {
     navItem = document.createElement('nav-item');
     document.body.appendChild(navItem);
 
     if (navItem == null) return;
-
-    const _span = navItem.querySelector('span');
-    if (_span != null) span = _span;
   });
 
   afterEach(() => {
