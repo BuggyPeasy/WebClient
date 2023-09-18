@@ -30,7 +30,7 @@ describe('SearchBar Component', () => {
     document.body.removeChild(searchBar);
   });
 
-  it('initialize everything correctly', () => {
+  it('should initialize everything correctly', () => {
     expect(searchBar).toBeTruthy();
   });
 
