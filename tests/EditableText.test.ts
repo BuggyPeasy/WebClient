@@ -135,24 +135,6 @@ describe.skip('EditableText', () => {
   });
 
   it('should throw an error when cancel() is called but it is not connected to the DOM', () => {
-    expect(editable_text).toBeTruthy();
-    expect(editable_text.is_editing).toBeFalse();
-
-    const cancelHandler = mock(e => e.preventDefault());
-    editable_text.addEventListener('cancel', cancelHandler);
-
-    editable_text.click();
-
-    expect(editable_text.is_editing).toBeTrue();
-
-    input.value = '';
-
-    editable_text.cancel();
-
-    expect(cancelHandler).not.toHaveBeenCalled();
-  });
-
-  it('should enter the input mode when the user clicks on it if not in the input mode', () => {
     const test = document.createElement('editable-text');
 
     const cb = (): void => {
@@ -162,5 +144,14 @@ describe.skip('EditableText', () => {
     expect(cb).toThrow(EditableText.CHILD_NOT_FOUND_ERROR);
 
     test.remove();
+  });
+
+  it('should enter the input mode when the user clicks on it if not in the input mode', () => {
+    expect(editable_text).toBeTruthy();
+    expect(editable_text.is_editing).toBeFalse();
+
+    editable_text.click();
+
+    expect(editable_text.is_editing).toBeTrue();
   });
 });
