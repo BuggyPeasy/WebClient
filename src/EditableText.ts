@@ -52,7 +52,6 @@ class EditableText extends HTMLElement {
   }
 
   attributeChangedCallback() {
-
     // when the element is empty
     if (this.innerHTML === '') return;
 
@@ -64,9 +63,8 @@ class EditableText extends HTMLElement {
     const p = this.querySelector('p');
     const form = this.querySelector('form');
     const input = this.querySelector('input');
-    const cancel_btn = this.querySelector('button[type="button"]');
 
-    if (p == null || form == null || cancel_btn == null || input == null)
+    if (p == null || form == null || input == null)
       throw new Error(EditableText.CHILD_NOT_FOUND_ERROR);
 
     // markup
