@@ -51,7 +51,7 @@ class EditableText extends HTMLElement {
     this.addEventListeners();
   }
 
-  attributeChangedCallback(attributeName: string, oldValue: string, newValue: string) {
+  attributeChangedCallback() {
 
     // when the element is empty
     if (this.innerHTML === '') return;
