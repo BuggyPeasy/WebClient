@@ -42,7 +42,7 @@ describe('EditableText', () => {
     expect(form).not.toBeTruthy();
   });
 
-  it('should invoke submi event when the save() is called when connected to the DOM', () => {
+  it('should invoke submit event when the save() is called when connected to the DOM', () => {
     expect(editable_text).toBeTruthy();
     expect(editable_text.is_editing).toBeFalse();
 

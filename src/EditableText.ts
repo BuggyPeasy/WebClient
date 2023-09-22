@@ -2,6 +2,10 @@ class EditableText extends HTMLElement {
   static CHILD_NOT_FOUND_ERROR =
     'child element not found in editable-text element';
 
+  static get observedAttributes() {
+    return ['data-text'];
+  }
+
   static HTML = `
     <p></p>
     <form>
@@ -15,14 +19,14 @@ class EditableText extends HTMLElement {
     </form>
   `;
 
-  #mode: 'edit' | 'normal' = 'normal';
+  _mode: 'edit' | 'normal' = 'normal';
 
-  get mode() {
-    return this.#mode;
+  get #mode() {
+    return this._mode;
   }
 
-  set mode(value: 'edit' | 'normal') {
-    this.#mode = value;
+  set #mode(value: 'edit' | 'normal') {
+    this._mode = value;
     this.render();
   }
 
@@ -30,8 +34,13 @@ class EditableText extends HTMLElement {
     return this.getAttribute('data-text') || '';
   }
 
+  set #text(value: string) {
+    this.setAttribute('data-text', value);
+    this.render();
+  }
+
   get is_editing(): boolean {
-    return this.mode == 'edit';
+    return this.#mode == 'edit';
   }
 
   connectedCallback() {
@@ -40,6 +49,15 @@ class EditableText extends HTMLElement {
     this.render();
 
     this.addEventListeners();
+  }
+
+  attributeChangedCallback(attributeName: string, oldValue: string, newValue: string) {
+
+    // when the element is empty
+    if (this.innerHTML === '') return;
+
+    // when the element is connected
+    this.render();
   }
 
   render() {
@@ -56,8 +74,8 @@ class EditableText extends HTMLElement {
     input.value = this.#text;
 
     // styling
-    p.style.display = this.mode == 'edit' ? 'none' : 'block';
-    form.style.display = this.mode == 'edit' ? 'block' : 'none';
+    p.style.display = this.#mode == 'edit' ? 'none' : 'block';
+    form.style.display = this.#mode == 'edit' ? 'block' : 'none';
   }
 
   addEventListeners() {
@@ -73,6 +91,7 @@ class EditableText extends HTMLElement {
     const cancel_btn_handler = () => this.exitEdit();
     const form_handler = (e: SubmitEvent) => {
       e.preventDefault();
+      this.#text = input.value;
       this.exitEdit();
     };
 
@@ -82,15 +101,15 @@ class EditableText extends HTMLElement {
   }
 
   enterEdit() {
-    this.mode = 'edit';
+    this.#mode = 'edit';
   }
 
   exitEdit() {
-    this.mode = 'normal';
+    this.#mode = 'normal';
   }
 
   click() {
-    if (this.mode != 'normal') return;
+    if (this.#mode != 'normal') return;
 
     const p = this.querySelector('p');
 
@@ -106,7 +125,7 @@ class EditableText extends HTMLElement {
       throw new Error(EditableText.CHILD_NOT_FOUND_ERROR);
 
     // check if in edit mode
-    if (this.mode != 'edit') return;
+    if (this.#mode != 'edit') return;
 
     // validate input value
     if (input.value === '') return;
@@ -122,7 +141,7 @@ class EditableText extends HTMLElement {
     if (cancel_btn == null) throw new Error(EditableText.CHILD_NOT_FOUND_ERROR);
 
     // check if in edit mode
-    if (this.mode != 'edit') return;
+    if (this.#mode != 'edit') return;
 
     cancel_btn.click();
   }
