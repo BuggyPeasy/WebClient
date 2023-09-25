@@ -23,8 +23,18 @@
         height="300px"
       />
     </image-container>
+    <editable-text data-text="hello"></editable-text>
     <script type="module" src="js/AnswerForm.js"></script>
     <script type="module" src="js/SearchBar.js"></script>
     <script type="module" src="js/ImageContainer.js"></script>
+    <script type="module" src="js/EditableText.js"></script>
+    <script>
+      let el = document.querySelector('editable-text');
+      el.addEventListener('submit', e => {
+        e.preventDefault();
+        console.log(e.target);
+        console.log(new FormData(e.target).get('input'));
+      });
+    </script>
   </body>
 </html>
