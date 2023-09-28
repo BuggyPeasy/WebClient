@@ -2,7 +2,7 @@
 
 Codebase for web client
 
-## Set Up
+## Dev Environment Set Up
 
 Run this command to set up your dev env:
 
@@ -96,6 +96,12 @@ Reference: [link](https://github.com/git-merge-workshops/simplify-signing-with-s
    ```sh
    git rebase --signoff HEAD~N
    ```
+
+### Set Up Firebase Configuration
+
+```sh
+cp ./firebase/Dev.ts ./src/ && mv ./src/Dev.ts ./src/firebase.ts
+```
 
 ### Potential Errors
 

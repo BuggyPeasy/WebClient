@@ -173,3 +173,5 @@ dist
 
 # firebase
 .firebase/
+
+src/firebase.ts
