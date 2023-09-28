@@ -19,5 +19,8 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "firebase": "^10.4.0"
+  }
 }
