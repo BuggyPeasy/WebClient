@@ -13,6 +13,13 @@
     <title>Buggy Peasy</title>
   </head>
   <body>
+    <nav>
+      <ul>
+        <nav-item data-text="Home" data-icon-class="fa-solid fa-house" data-route="/"></nav-item>
+        <nav-item data-text="Images" data-icon-class="fa-regular fa-image" data-route="/images"></nav-item>
+        <nav-item data-text="Sign In" data-icon-class="fa-solid fa-right-from-bracket"" data-route="/sign-in"></nav-item>
+      </ul>
+    </nav>
     <answer-form></answer-form>
     <search-bar></search-bar>
     <image-container>
@@ -28,6 +35,7 @@
     <script type="module" src="js/SearchBar.js"></script>
     <script type="module" src="js/ImageContainer.js"></script>
     <script type="module" src="js/EditableText.js"></script>
+    <script type="module" src="js/NavItem.js"></script>
     <script>
       let el = document.querySelector('editable-text');
       el.addEventListener('submit', e => {
