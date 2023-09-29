@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Production
 
 # Controls when the workflow will run
 on:
@@ -54,3 +54,30 @@ jobs:
 
       - name: Build
         run: bun run build
+
+  deploy:
+    needs: [build]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v1
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Move Firebase Configuration
+        run: cp ./firebase/Prod.ts ./src/ && mv ./src/Prod.ts ./src/firebase.ts
+
+      - name: Build
+        run: bun run build
+
+      - name: See Build Files
+        run: ls ./dist/
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BUGGPEASY }}'
+          channelId: live
+          projectId: buggpeasy

@@ -2,7 +2,7 @@
   "name": "web-client",
   "scripts": {
     "start": "http-server dist/ -p 8080",
-    "build": "bun build ./src/* --outdir=dist/js && cp -R ./public/*.html ./dist/",
+    "build": "bun build ./src/* --outdir=dist/js && cp -R ./public/* ./dist/",
     "test": "bun test",
     "check": "bun x eslint ./src/ ./tests --ext .ts",
     "clean": "rm -r dist/*"
@@ -19,5 +19,8 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "firebase": "^10.4.0"
+  }
 }
