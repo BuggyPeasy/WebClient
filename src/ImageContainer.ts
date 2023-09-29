@@ -37,6 +37,7 @@ class ImageContainer extends HTMLElement {
 
     this.shadowRoot.innerHTML = this.HTML;
 
+    this.addEventListener('click', this.click);
     this.#img.addEventListener('click', this.clickHandler);
   }
 
