@@ -43,7 +43,7 @@ class NavItem extends HTMLElement {
 
     this.render();
 
-    this.addEventListeners();
+    this.addEventListener("click", this.click);
   }
 
   render() {
@@ -64,12 +64,13 @@ class NavItem extends HTMLElement {
     span.style.display = 'block';
   }
 
-  addEventListeners() {
+  click() {
+    const a = this.querySelector('a');
 
-  }
+    if (a == null)
+      throw new Error(NavItem.CHILD_NOT_FOUND_ERR);
 
-  click(): void{
-    
+    a.click();
   }
 }
 
