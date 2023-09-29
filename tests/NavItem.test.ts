@@ -4,7 +4,7 @@ import { describe, expect, beforeEach, afterEach, it, mock } from 'bun:test';
 
 import NavItem from '../src/NavItem';
 
-describe.skip('NavItem', () => {
+describe('NavItem', () => {
 
   let navItem: NavItem;
 
@@ -45,6 +45,6 @@ describe.skip('NavItem', () => {
       test.click();
     };
 
-    expect(cb).toThrow(NavItem.LI_NOT_FOUND_ERR);
+    expect(cb).toThrow(NavItem.CHILD_NOT_FOUND_ERR);
   });
 });

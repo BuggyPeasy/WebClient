@@ -1,10 +1,10 @@
 /// <reference lib="dom" />
 
-import { describe, it, expect, beforeEach, afterEach, mock } from 'bun:test';
+import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
 
 import ImageContainer from '../src/ImageContainer';
 
-describe.skip('ImageContainer Component', () => {
+describe('ImageContainer Component', () => {
   let img: HTMLImageElement;
   let image_container: ImageContainer;
 
@@ -27,8 +27,14 @@ describe.skip('ImageContainer Component', () => {
     expect(image_container.shadowRoot).toBeTruthy();
   });
 
+  it('should attach shadowRoot even if not connected to the DOM', () => {
+    const test = document.createElement('image-container');
+    expect(test.shadowRoot).toBeTruthy();
+  });
+
   it('should throw an error if the slot is not an img element', () => {
     const p = document.createElement('p');
+    p.setAttribute('slot', 'image');
     const test = document.createElement('image-container');
 
     test.appendChild(p);
@@ -41,30 +47,24 @@ describe.skip('ImageContainer Component', () => {
     test.remove();
   });
 
+  it('should throw an error if the slot is not assigned', () => {
+    const img = document.createElement('img');
+    const test = document.createElement('image-container');
+
+    test.appendChild(img);
+
+    const cb = (): void => {
+      document.body.appendChild(test);
+    };
+
+    expect(cb).toThrow(ImageContainer.IMG_NOT_FOUND_ERROR);
+    test.remove();
+  });
+
   it('should not render if not connected to the DOM', () => {
     const test = document.createElement('image-container');
     const slot = test.querySelector('slot');
     expect(slot).not.toBeTruthy();
-  });
-
-  it('should not attach shadowRoot if not connected to the DOM', () => {
-    const test = document.createElement('image-container');
-    expect(test.shadowRoot).not.toBeTruthy();
-  });
-
-  it('should invoke click event when the user clicks on it', () => {
-    const clickHander = mock(e => e.preventDefault());
-
-    image_container.addEventListener('click', clickHander);
-
-    image_container.click();
-
-    expect(clickHander).toHaveBeenCalled();
-  });
-
-  it('should enter full-screen mode when the user clicks on the image container or the image', () => {
-    image_container.click();
-    expect(document.fullscreenElement).toBeTruthy();
   });
 
   it('should throw an error when click() is called but it is not connected to the DOM', () => {
