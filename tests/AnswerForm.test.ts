@@ -2,7 +2,7 @@
 
 import { describe, expect, beforeEach, afterEach, it, mock } from 'bun:test';
 
-import AnswerForm from '../src/AnswerForm';
+import AnswerForm from '../src/components/AnswerForm';
 
 describe('AnswerForm', () => {
   const answerInputName = 'user-answer';

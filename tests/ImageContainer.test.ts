@@ -2,7 +2,7 @@
 
 import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
 
-import ImageContainer from '../src/ImageContainer';
+import ImageContainer from '../src/lib/ImageContainer';
 
 describe('ImageContainer Component', () => {
   let img: HTMLImageElement;

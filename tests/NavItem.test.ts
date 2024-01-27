@@ -2,10 +2,9 @@
 
 import { describe, expect, beforeEach, afterEach, it, mock } from 'bun:test';
 
-import NavItem from '../src/NavItem';
+import NavItem from '../src/lib/NavItem';
 
 describe('NavItem', () => {
-
   let navItem: NavItem;
 
   beforeEach(() => {

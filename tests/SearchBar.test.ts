@@ -2,7 +2,7 @@
 
 import { describe, expect, beforeEach, afterEach, it, mock } from 'bun:test';
 
-import SearchBar from '../src/SearchBar';
+import SearchBar from '../src/components/SearchBar';
 
 describe('SearchBar Component', () => {
   const answerInputValue = 'answer';

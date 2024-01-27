@@ -2,7 +2,7 @@
   "name": "web-client",
   "scripts": {
     "start": "http-server dist/ -p 8080",
-    "build": "bun build ./src/* --outdir=dist/js && cp -R ./public/* ./dist/",
+    "build": "find ./src -name '*.ts' -exec printf '%s ' {} + | xargs bun build --outdir=./dist/js && cp -R ./public/* ./dist/",
     "test": "bun test",
     "check": "bun x eslint ./src/ ./tests --ext .ts",
     "clean": "rm -r dist/*"

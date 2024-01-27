@@ -10,40 +10,53 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css?family=Rubik:400,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./index.css" />
     <title>Buggy Peasy</title>
   </head>
   <body>
-    <nav>
-      <ul>
-        <nav-item data-text="Home" data-icon-class="fa-solid fa-house" data-route="/"></nav-item>
-        <nav-item data-text="Images" data-icon-class="fa-regular fa-image" data-route="/images"></nav-item>
-        <nav-item data-text="Sign In" data-icon-class="fa-solid fa-right-from-bracket" data-route="/sign-in"></nav-item>
-      </ul>
-    </nav>
-    <answer-form></answer-form>
-    <search-bar></search-bar>
-    <image-container>
-      <img
-        slot="image"
-        src="https://drive.google.com/uc?export=view&id=1h1krR2Ppri2YDHM8rczJoPnOj-qaZoCU"
-        alt="parasite"
-        height="300px"
-      />
-    </image-container>
-    <editable-text data-text="hello"></editable-text>
-    <script type="module" src="js/firebase.js"></script>
-    <script type="module" src="js/AnswerForm.js"></script>
-    <script type="module" src="js/SearchBar.js"></script>
-    <script type="module" src="js/ImageContainer.js"></script>
-    <script type="module" src="js/EditableText.js"></script>
-    <script type="module" src="js/NavItem.js"></script>
-    <script>
-      let el = document.querySelector('editable-text');
-      el.addEventListener('submit', e => {
-        e.preventDefault();
-        console.log(e.target);
-        console.log(new FormData(e.target).get('input'));
-      });
-    </script>
+    <header>
+      <nav>
+        <ul>
+          <nav-item
+            data-text="Home"
+            data-icon-class="fa-solid fa-house"
+            data-route="/"
+          ></nav-item>
+          <nav-item
+            data-text="Images"
+            data-icon-class="fa-regular fa-image"
+            data-route="/images"
+          ></nav-item>
+          <nav-item
+            data-text="Sign In"
+            data-icon-class="fa-solid fa-right-from-bracket"
+            data-route="/sign-in"
+          ></nav-item>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="image-container">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/buggypeasy-8ef37.appspot.com/o/images%2FIMG_4748.JPG?alt=media&token=f2ec344a-c30a-4277-b809-0a9836b046d7"
+          alt="parasite"
+        />
+        <input type="range" min="1" max="5" step="0.01" value="1" />
+      </div>
+    </main>
+    <form>
+      <input type="text" placeholder="your answer 📝" autofocus />
+      <button>
+        <i class="fa-solid fa-check"></i>
+      </button>
+    </form>
+    <script type="module" src="js/index.js"></script>
+    <script type="module" src="js/lib/NavItem.js"></script>
   </body>
 </html>

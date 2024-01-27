@@ -2,7 +2,7 @@
 
 import { describe, expect, beforeEach, afterEach, it, mock } from 'bun:test';
 
-import EditableText from '../src/EditableText';
+import EditableText from '../src/lib/EditableText';
 
 describe('EditableText', () => {
   const newText = 'new text';
